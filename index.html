@@ -215,6 +215,15 @@
     color: var(--ink-soft);
   }
 
+  .playlist {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--accent-deep);
+    margin: -8px auto 0;
+    max-width: 32ch;
+    text-wrap: pretty;
+  }
+
   .assinatura {
     font-family: Georgia, "Times New Roman", serif;
     font-style: italic;
@@ -255,7 +264,7 @@
   <!-- TELA 3 · a pergunta -->
   <section class="screen" id="tela3">
     <h1>Quer sair comigo?</h1>
-    <p class="lead">Prometo boa companhia e risada garantida.</p>
+    <p class="lead">Prometo boa companhia, risada garantida e zero lag. 🎮</p>
     <div class="btn-row">
       <button class="btn btn-primary" id="btnSim">Sim! 💛</button>
       <button class="btn btn-ghost" id="btnNao">Não</button>
@@ -318,6 +327,7 @@
     <div class="final-emoji" id="finalEmoji" aria-hidden="true">💛</div>
     <h1 id="finalTitulo">Combinado!</h1>
     <p class="lead" id="finalTexto"></p>
+    <p class="playlist">🎧 Trilha sonora do rolê: Stray Kids, óbvio. A playlist é toda sua — e prometo prestar atenção quando você explicar quem é quem.</p>
     <div class="status-box enviando" id="statusBox">Enviando sua resposta…</div>
     <p class="assinatura">— aquele que te chama de querida</p>
   </section>
@@ -348,12 +358,18 @@
   var frases = [
     "Certeza? 🥺",
     "Pensa mais um pouquinho…",
-    "O outro botão é bem melhor 😄",
-    "Esse botão é tímido, foi embora!",
+    "O botão deu respawn pra longe 😄",
+    "Isso tá mais difícil que obby impossível!",
+    "Nem MANIAC do Stray Kids explica essa fuga…",
     "Desiste não, aperta o Sim 💛"
   ];
 
+  var ultimaFuga = 0;
   function fugir() {
+    // um toque no celular dispara vários eventos; conta como uma fuga só
+    var agora = Date.now();
+    if (agora - ultimaFuga < 400) return;
+    ultimaFuga = agora;
     fugas++;
 
     var margem = 20;
@@ -368,10 +384,10 @@
     btnNao.style.left = x + "px";
     btnNao.style.top = y + "px";
 
-    var escala = Math.max(1 - fugas * 0.16, 0.35);
+    var escala = Math.max(1 - fugas * 0.09, 0.55);
     btnNao.style.transform = "scale(" + escala + ")";
 
-    var cresce = Math.min(1 + fugas * 0.12, 1.6);
+    var cresce = Math.min(1 + fugas * 0.1, 1.5);
     btnSim.style.transform = "scale(" + cresce + ")";
 
     provoca.textContent = frases[Math.min(fugas - 1, frases.length - 1)];
