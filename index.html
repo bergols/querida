@@ -390,6 +390,11 @@
     // 3 primeiras: teleporte instantâneo (some e reaparece); depois: fuga deslizando
     btnNao.style.transition = fugas <= 3 ? "transform 0.15s ease" : "";
 
+    // sai do contêiner animado (que prende o position:fixed) e passa a fugir pela tela toda
+    if (btnNao.parentElement !== document.body) {
+      document.body.appendChild(btnNao);
+    }
+
     var margem = 20;
     var bw = btnNao.offsetWidth;
     var bh = btnNao.offsetHeight;
