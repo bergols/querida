@@ -383,9 +383,12 @@
   function fugir() {
     // um toque no celular dispara vários eventos; conta como uma fuga só
     var agora = Date.now();
-    if (agora - ultimaFuga < 400) return;
+    if (agora - ultimaFuga < 300) return;
     ultimaFuga = agora;
     fugas++;
+
+    // 3 primeiras: teleporte instantâneo (some e reaparece); depois: fuga deslizando
+    btnNao.style.transition = fugas <= 3 ? "transform 0.15s ease" : "";
 
     var margem = 20;
     var bw = btnNao.offsetWidth;
@@ -413,6 +416,10 @@
       e.preventDefault();
       fugir();
     }, { passive: false });
+  });
+  // no PC: se o cursor conseguir parar em cima dele, continua fugindo mesmo assim
+  btnNao.addEventListener("mousemove", function () {
+    fugir();
   });
   btnNao.addEventListener("click", function (e) {
     e.preventDefault();
