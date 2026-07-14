@@ -308,28 +308,28 @@
   <!-- TELA 1 · envelope -->
   <section class="screen active" id="tela1">
     <div class="envelope" aria-hidden="true">💌</div>
-    <p class="eyebrow">chegou uma coisinha pra você</p>
+    <p class="eyebrow">pra você</p>
     <h1>Oi, querida</h1>
-    <p class="lead">Tem algo aqui dentro que eu queria muito te dizer.</p>
-    <button class="btn btn-primary" data-next="tela2">Abrir 💛</button>
+    <p class="lead">Fiz uma coisa pra você. Leva uns 30 segundos.</p>
+    <button class="btn btn-primary" data-next="tela2">Abrir</button>
   </section>
 
   <!-- TELA 2 · mensagem -->
   <section class="screen" id="tela2">
     <p class="eyebrow">pra Lya</p>
-    <h1>Sabe de uma coisa?</h1>
+    <h1>Vou ser direto</h1>
     <p class="lead">
-      Já faz um ano que conversar com você é a melhor parte do meu dia.
-      Eu já tentei te chamar pra sair antes — e o universo sempre deu um jeito de atrapalhar.
-      Então dessa vez eu caprichei:
+      Faz um ano que a gente conversa todo dia. E umas boas vezes eu tentei
+      te chamar pra sair — nunca deu certo: prova, viagem, calor de 40 graus.
+      Então dessa vez eu vim preparado.
     </p>
-    <button class="btn btn-primary" data-next="tela3">Qual pergunta? 👀</button>
+    <button class="btn btn-primary" data-next="tela3">Preparado como? 🤨</button>
   </section>
 
   <!-- TELA 3 · a pergunta -->
   <section class="screen" id="tela3">
     <h1>Quer sair comigo?</h1>
-    <p class="lead">Prometo boa companhia e risada garantida.</p>
+    <p class="lead">Escolhe com calma. Sem pressa.</p>
     <div class="btn-row">
       <button class="btn btn-primary" id="btnSim">Sim! 💛</button>
       <button class="btn btn-ghost" id="btnNao">Não</button>
@@ -340,8 +340,8 @@
   <!-- TELA 4 · escolha do programa -->
   <section class="screen" id="tela4">
     <div class="final-emoji" aria-hidden="true">🎉</div>
-    <h1>Eu sabia!</h1>
-    <p class="lead">Agora a melhor parte: você escolhe o programa.</p>
+    <h1>Boa decisão</h1>
+    <p class="lead">Agora escolhe o programa:</p>
     <div class="choices">
       <button class="choice" data-escolha="Cinema" data-emoji="🎬">
         <span class="emoji" aria-hidden="true">🎬</span>
@@ -366,7 +366,7 @@
   <section class="screen" id="tela5">
     <div class="final-emoji" aria-hidden="true">🗓️</div>
     <h1>E quando fica bom?</h1>
-    <p class="lead">Você manda, eu apareço.</p>
+    <p class="lead">Escreve do teu jeito — pode ser vago, eu decifro.</p>
     <div class="form-dia">
       <label>Dia
         <input id="inpDia" type="text" placeholder="ex: sábado · 25/07" maxlength="60" autocomplete="off">
@@ -375,7 +375,7 @@
         <input id="inpHora" type="text" placeholder="ex: 19h" maxlength="30" autocomplete="off">
       </label>
       <p class="aviso" id="diaAviso"></p>
-      <button class="btn btn-primary" id="btnConfirmaDia">Fechado! 💛</button>
+      <button class="btn btn-primary" id="btnConfirmaDia">Fechado 💛</button>
     </div>
   </section>
 
@@ -482,10 +482,10 @@
   var resposta = { programa: "", emoji: "", dia: "", hora: "" };
 
   var mensagens = {
-    Cinema: "Filme escolhido por você, pipoca por minha conta.",
-    Cafeteria: "Um café, uma boa conversa e tempo passando rápido demais.",
-    Pizzaria: "Pizza boa e a melhor companhia. Impossível dar errado.",
-    Sushi: "Prometo não brigar pelo último hot roll… talvez. 😄"
+    Cinema: "Você escolhe o filme. Eu não reclamo. Muito.",
+    Cafeteria: "Basicamente o que a gente já faz todo dia, só que sem tela no meio.",
+    Pizzaria: "Pizza não tem como dar errado. Estatisticamente.",
+    Sushi: "Prometo não brigar pelo último hot roll. Prometo é modo de dizer."
   };
 
   document.querySelectorAll(".choice:not(.dia)").forEach(function (card) {
@@ -505,7 +505,7 @@
     var dia = inpDia.value.trim();
     var hora = inpHora.value.trim();
     if (!dia) {
-      diaAviso.textContent = "Me conta pelo menos o dia 🥺";
+      diaAviso.textContent = "Faltou o dia 👀";
       inpDia.focus();
       return;
     }
@@ -551,14 +551,14 @@
       okMostrado = true;
       statusBox.className = "status-box falha";
       statusBox.innerHTML =
-        "📸 O correio dos apaixonados falhou — tira um print dessa tela e manda pra ele 😄";
+        "📸 Deu erro no envio — tira um print dessa tela e manda pra ele, funciona igual.";
     }
     function canalTerminou(ok) {
       doneCount++;
       if (ok && !okMostrado) {
         okMostrado = true;
         statusBox.className = "status-box sucesso";
-        statusBox.textContent = "✅ Resposta enviada! Ele já ficou sabendo 😉";
+        statusBox.textContent = "✅ Enviado. Ele já sabe.";
         return;
       }
       if (!ok && doneCount >= 2) mostraFalha();
