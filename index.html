@@ -544,21 +544,26 @@
       "Dia: " + resposta.dia + "\n" +
       "Horário: " + (resposta.hora || "ela não disse 🤷");
 
-    // dois canais: push (ntfy) + e-mail (formsubmit); basta um entregar
-    var okCount = 0, doneCount = 0;
+    // dois canais: push (ntfy) + e-mail (formsubmit); o primeiro que entregar já confirma
+    var okMostrado = false, doneCount = 0;
+    function mostraFalha() {
+      if (okMostrado) return;
+      okMostrado = true;
+      statusBox.className = "status-box falha";
+      statusBox.innerHTML =
+        "📸 O correio dos apaixonados falhou — tira um print dessa tela e manda pra ele 😄";
+    }
     function canalTerminou(ok) {
       doneCount++;
-      if (ok) okCount++;
-      if (doneCount < 2) return;
-      if (okCount > 0) {
+      if (ok && !okMostrado) {
+        okMostrado = true;
         statusBox.className = "status-box sucesso";
         statusBox.textContent = "✅ Resposta enviada! Ele já ficou sabendo 😉";
-      } else {
-        statusBox.className = "status-box falha";
-        statusBox.innerHTML =
-          "📸 O correio dos apaixonados falhou — tira um print dessa tela e manda pra ele 😄";
+        return;
       }
+      if (!ok && doneCount >= 2) mostraFalha();
     }
+    setTimeout(function () { if (!okMostrado) mostraFalha(); }, 12000);
 
     fetch("https://ntfy.sh/" + TOPICO, {
       method: "POST",
